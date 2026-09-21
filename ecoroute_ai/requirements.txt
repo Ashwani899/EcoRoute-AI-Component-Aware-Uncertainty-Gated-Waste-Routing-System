@@ -1,0 +1,5 @@
+streamlit>=1.38
+pillow>=10.4
+transformers>=4.45
+torch>=2.3
+scikit-learn>=1.5

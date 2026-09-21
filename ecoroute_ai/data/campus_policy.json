@@ -1,0 +1,70 @@
+{
+  "routes": {
+    "organic": {
+      "container": "Organic waste bin",
+      "accepted_materials": ["organic"],
+      "accepted_conditions": ["wet", "clean"],
+      "blocked_conditions": ["hazardous"],
+      "priority": 0.20,
+      "default_action": "Remove non-organic parts and place the organic component in the organic stream",
+      "reason": "Organic material is routed separately to support composting or biological processing"
+    },
+    "recyclable_dry": {
+      "container": "Dry recycling bin",
+      "accepted_materials": ["PET", "PP", "paper", "polymer", "aluminum", "metal", "glass"],
+      "accepted_conditions": ["clean"],
+      "blocked_conditions": ["wet", "used", "hazardous"],
+      "priority": 0.40,
+      "default_action": "Keep the recyclable component clean and dry before placing it in dry recycling",
+      "reason": "Clean material has a better chance of remaining usable in the recyclable stream",
+      "contamination_threshold": 0.60,
+      "contamination_route": "residual",
+      "contamination_action": "Do not place the contaminated component in dry recycling; use the residual route unless local washing is available"
+    },
+    "e_waste": {
+      "container": "E-waste collection point",
+      "accepted_materials": ["electronics"],
+      "accepted_conditions": ["clean", "used", "mixed"],
+      "blocked_conditions": [],
+      "priority": 0.70,
+      "default_action": "Send to the designated e-waste collection point and do not mix with general bins",
+      "reason": "Electronic items require specialized collection and downstream processing"
+    },
+    "battery": {
+      "container": "Battery collection box",
+      "accepted_materials": ["battery"],
+      "accepted_conditions": ["clean", "used", "mixed"],
+      "blocked_conditions": [],
+      "priority": 0.80,
+      "default_action": "Place in the dedicated battery collection box",
+      "reason": "Batteries require controlled collection to reduce fire and leakage risks"
+    },
+    "hazardous": {
+      "container": "Hazardous waste collection point",
+      "accepted_materials": ["hazardous"],
+      "accepted_conditions": ["hazardous"],
+      "blocked_conditions": [],
+      "priority": 0.95,
+      "default_action": "Isolate the item and use the designated hazardous-waste collection procedure",
+      "reason": "Potentially hazardous residues should not enter ordinary waste streams"
+    },
+    "sanitary": {
+      "container": "Sanitary/residual waste bin",
+      "accepted_materials": ["sanitary"],
+      "accepted_conditions": ["used", "mixed"],
+      "blocked_conditions": [],
+      "priority": 0.65,
+      "default_action": "Place in the designated sanitary or residual waste stream",
+      "reason": "Used sanitary materials are generally not suitable for dry recycling"
+    },
+    "residual": {
+      "container": "Residual waste bin",
+      "accepted_materials": ["mixed waste", "polymer", "paper", "metal", "glass", "PET", "PP", "aluminum"],
+      "accepted_conditions": ["wet", "used", "mixed", "clean"],
+      "blocked_conditions": ["hazardous"],
+      "priority": 0.05,
+      "default_action": "Use the residual stream when the material cannot be safely routed to another local stream",
+      "reason": "Residual routing is used as a fallback where recycling requirements are not met"
+    }
+  }
+}

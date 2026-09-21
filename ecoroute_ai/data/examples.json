@@ -1,0 +1,14 @@
+{
+  "plastic bottle": ["plastic bottle", "water bottle", "PET bottle", "empty bottle", "soft drink bottle"],
+  "paper cup": ["paper cup", "tea cup", "coffee paper cup", "disposable paper cup"],
+  "juice carton": ["juice carton", "tetra pack", "milk carton", "drink carton"],
+  "snack packet": ["chips packet", "snack packet", "food wrapper", "foil packet"],
+  "coffee cup with lid": ["coffee cup with lid", "takeaway coffee cup", "paper coffee cup"],
+  "phone charger": ["phone charger", "charging cable", "power adapter", "USB charger"],
+  "battery": ["battery", "AA battery", "rechargeable battery", "power cell"],
+  "banana peel": ["banana peel", "fruit peel", "food peel", "banana skin"],
+  "glass bottle": ["glass bottle", "glass jar", "glass container"],
+  "used tissue": ["used tissue", "used napkin", "used mask", "sanitary waste"],
+  "paint can": ["paint can", "paint container", "chemical can", "solvent container"],
+  "mixed waste": ["mixed waste", "unknown item", "composite waste", "multi material"]
+}
