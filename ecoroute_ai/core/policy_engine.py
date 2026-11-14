@@ -21,16 +21,34 @@ def _score_route(material, condition, candidate):
 
 
 def route_component(component, material, condition, contamination):
-    candidates = list(POLICY["routes"].keys())
-    scored = [(r, _score_route(material, condition, r)) for r in candidates]
+    candidates = [
+        name for name, rule in POLICY["routes"].items()
+        if material in rule.get("accepted_materials", [])
+        and name != "manual_review"
+    ]
+    if not candidates:
+        route = "manual_review"
+        rule = POLICY["routes"][route]
+        return {
+            "component": component,
+            "route": route,
+            "container": rule["container"],
+            "action": rule.get("default_action", "Check local waste guidance before disposal"),
+            "reason": rule["reason"],
+        }
+
+    scored = [(name, _score_route(material, condition, name)) for name in candidates]
     scored.sort(key=lambda x: x[1], reverse=True)
     route = scored[0][0]
     rule = POLICY["routes"][route]
     action = rule.get("default_action", "Dispose according to campus policy")
     if contamination >= rule.get("contamination_threshold", 1.0):
-        route = rule.get("contamination_route", route)
+        fallback = rule.get("contamination_route", route)
+        if fallback not in POLICY["routes"]:
+            fallback = "manual_review"
+        route = fallback
         rule = POLICY["routes"][route]
-        action = rule.get("contamination_action", action)
+        action = rule.get("contamination_action", rule.get("default_action", action))
     return {
         "component": component,
         "route": route,
