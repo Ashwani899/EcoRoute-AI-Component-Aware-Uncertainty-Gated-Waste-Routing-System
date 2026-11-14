@@ -1,4 +1,7 @@
+import pytest
+
 from core.components import decompose
+from core.engine import analyze_text
 from core.policy_engine import build_routing_plan
 
 
@@ -20,3 +23,18 @@ def test_contamination_fallback():
     components = decompose("plastic bottle", "clean")
     plan = build_routing_plan(components, 0.85)
     assert plan[0]["route"] == "residual"
+
+
+def test_unknown_material_requires_manual_review():
+    plan = build_routing_plan(
+        [{"name": "unknown composite", "material": "unlisted_composite", "condition": "clean"}],
+        0.05,
+    )
+    assert plan[0]["route"] == "manual_review"
+    assert "staff review" in plan[0]["container"].lower()
+    assert "do not guess" in plan[0]["action"].lower()
+
+
+def test_empty_text_is_rejected():
+    with pytest.raises(ValueError, match="non-empty"):
+        analyze_text("   ")
