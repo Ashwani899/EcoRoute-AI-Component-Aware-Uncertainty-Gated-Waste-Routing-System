@@ -65,6 +65,15 @@
       "priority": 0.05,
       "default_action": "Use the residual stream when the material cannot be safely routed to another local stream",
       "reason": "Residual routing is used as a fallback where recycling requirements are not met"
+    },
+    "manual_review": {
+      "container": "Campus waste guidance / staff review",
+      "accepted_materials": [],
+      "accepted_conditions": ["clean", "wet", "contaminated", "mixed", "used", "hazardous"],
+      "blocked_conditions": [],
+      "priority": 1.0,
+      "default_action": "Do not guess a disposal category; check verified local guidance or ask campus waste staff",
+      "reason": "The material is not covered by the configured policy routes"
     }
   }
 }
