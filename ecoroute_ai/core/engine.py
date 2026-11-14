@@ -14,6 +14,8 @@ FEEDBACK_PATH = BASE / "data" / "feedback.json"
 
 
 def _entropy(top):
+    if not top:
+        return 1.0
     values = [max(1e-9, x[1]) for x in top]
     total = sum(values)
     probs = [v / total for v in values]
@@ -56,9 +58,13 @@ def save_feedback(item_text, predicted, corrected):
 
 
 def analyze_text(item_text):
+    if not isinstance(item_text, str) or not item_text.strip():
+        raise ValueError("Provide a non-empty item description.")
     label, confidence, top = predict_from_text(item_text)
+    if not label or not top:
+        raise ValueError("The item description could not be classified.")
     condition = "clean"
-    text = (item_text or "").lower()
+    text = item_text.lower()
     if any(x in text for x in ["dirty", "greasy", "food residue", "with food", "used"]):
         condition = "contaminated"
     elif any(x in text for x in ["wet", "liquid", "leftover"]):
@@ -80,6 +86,8 @@ def analyze_multimodal(item_text, image_result):
     for label, score in text_top:
         merged[label] = merged.get(label, 0.0) + score * text_weight
     ranked = sorted(merged.items(), key=lambda x: x[1], reverse=True)[:4]
+    if not ranked:
+        raise ValueError("The image and text inputs did not produce a classification.")
     label = ranked[0][0]
     confidence = ranked[0][1] / max(1e-9, sum(x[1] for x in ranked))
     condition = max(condition_probs, key=lambda x: x[1]) if condition_probs else "clean"
