@@ -99,4 +99,4 @@ Built in the **AI for Sustainability Virtual Internship** programme with 1M1B, A
 
 ## License
 
-See the repository for the applicable project materials and licensing information.
+No license file is currently included in this repository. Do not assume reuse, modification, or redistribution rights until a license is explicitly added.
